@@ -1,11 +1,28 @@
 #!/usr/bin/env python3
 """
-DeltaV Event Log Analyzer v4 — compressed output
+DELTA V EVENT LOG ANALYZER - CORE ENGINE (CANONICAL)
+
+This is the single source of truth for parsing DeltaV event logs.
+
 Run with no args: drops to a command prompt (/load, /help, /quit).
 Run with file arg: analyzes and prints immediately, then exits.
+
 Usage:
-    python v4_analyze_events.py                # interactive
-    python v4_analyze_events.py <path>         # one-shot
+    python analyze_core.py                # interactive
+    python analyze_core.py <path>         # one-shot
+
+────────────────────────────────────────────
+
+CANONICAL RULES (CRITICAL):
+
+- This file is the ONLY authoritative parser for event interpretation
+- Do NOT duplicate parsing logic in other files
+- Do NOT override or reinterpret its output elsewhere
+- All downstream tools must consume its output as-is
+- Output schema must remain stable across all future changes
+- Changes must be minimal and intentional (no silent refactors)
+
+────────────────────────────────────────────
 """
 import sys
 from collections import defaultdict, Counter
