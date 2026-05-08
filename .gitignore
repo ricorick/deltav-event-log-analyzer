@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data/test files - keep source only
+*.log
+*.txt
+*.csv
+*.fhx
+*.tar
+*.zip
+tag_list*
+TAG_LIST*
+database/
+fhx-exports/
+module-exports/
+
+# Runtime
+.venv/
+venv/
