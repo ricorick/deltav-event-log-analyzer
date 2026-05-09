@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
 Summarize DeltaV event log analysis using local Ollama + structured JSON.
-Parses the event file, builds a structured data payload, sends to granite4.1:3b.
-The model reads structured data rather than formatted text, so it can weigh
-all sections fairly instead of latching onto whatever comes first.
+Parses the event file, builds a structured data payload, sends to a local Ollama model
+for causal root-cause analysis. Uses structured JSON feed (not formatted text) so the
+model can weigh all sections fairly.
 
 Usage:
     python summarize_analysis.py /path/to/event_log.txt
@@ -17,7 +17,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 
 OLLAMA_URL = "http://172.29.64.1:11434/api/generate"
-MODEL = "analysis:base"
+MODEL = "analysis:7b"
 
 
 def parse_log(path: str) -> list:
@@ -433,33 +433,36 @@ def summarize(json_data: dict) -> str:
 
 {json.dumps(json_data, indent=2)}
 
-ANALYZE CAUSALLY, NOT JUST BY VOLUME. START with the `analysis_hints` field — it tells you the ground truth about root causes. Work through these steps:
+You are a DeltaV process control expert analyzing structured event log data for root-cause analysis. Work through these steps before producing your output.
 
-0. **READ ANALYSIS_HINTS FIRST**: Check `analysis_hints.likely_normal_operations`. If TRUE, there are NO unrecovered outages and NO connection failures — the data reflects normal operations (startup, shutdown, maintenance). Do NOT invent a root cause. Describe what the event data actually shows.
+REASONING STEPS (internal -- do not output these):
 
-1. **IDENTIFY THE SOURCE NODE** (only if `analysis_hints.has_unrecovered_outages` is TRUE): Look at `standby_redundancy.unrecovered_outages` for nodes with failures that NEVER recovered. Then check `connection_failure_targets` for nodes targeted by connection failures.
+1. READ analysis_hints first -- check has_unrecovered_outages and has_connection_failure_targets. If both are false, the data likely reflects normal operations -- do not invent a root cause.
 
-2. **NO ROOT CAUSE = NORMAL STATE**: If there are NO unrecovered outages AND connection_failure_targets is empty, the event stream likely reflects normal operations (startup, shutdown, scheduled maintenance). Say so clearly instead of forcing a root cause.
+2. IDENTIFY THE SOURCE NODE -- if has_unrecovered_outages is TRUE, check standby_redundancy.unrecovered_outages for nodes with permanent failures. Then check connection_failure_targets for nodes that are the TARGET of connection failures (not the node reporting them).
 
-3. **DOWNSTREAM EFFECTS ARE NOT ROOT CAUSES**: Nodes with I/O Input Failure, Transfer Failure, or Module Failure that also appear in `downstream_references` are downstream victims. Their event volume is a consequence, not a cause.
+3. DOWNSTREAM EFFECTS ARE NOT ROOT CAUSES -- a node with I/O Input Failure that also references another node in its descriptions is a downstream victim. High event volume on a downstream node is a consequence, not a cause.
 
-4. **PERMANENT FAILURES OVERRIDE INTERMITTENT**: A node with unrecovered outages (never came back) is more significant than one with many events that all recovered.
+4. PERMANENT FAILURES OVERRIDE INTERMITTENT -- a node with unrecovered outages (never came back) is more significant than one with many events that all recovered.
 
-5. **CHECK STANDBY/REDUNDANCY**: Look at `standby_redundancy.outages` for the actual failure timeline. Multiple short-duration outages followed by longer ones suggests a flapping failure.
+5. CHECK THE TIMELINE -- look at standby_redundancy.outages for the actual failure sequence. Multiple short-duration outages followed by longer ones suggests a flapping failure.
 
-Now produce a concise summary with these exact sections:
+Now produce a concise root-cause summary with these exact sections. Use the example format below as a reference for structure, but ADAPT to the actual data -- do not copy the example node names or counts verbatim.
 
-1. **Root Cause**: Name the specific root node(s) and failure description using exact node names from the data. Distinguish root cause from downstream effects. If no root cause exists, state that the data shows no unrecovered failures and describe the actual event pattern observed (e.g. controlled shutdown, startup sequencing, normal operations).
+EXAMPLE OUTPUT (reference only):
+Root Cause: 52WIOCDCS02B -- unrecovered standby failure with 160 events. This WIOC lost redundancy at 02:30:00 on 05/02/2026 and never recovered. All other affected nodes (52PK02 with 800 I/O failures, 52CV01 with OTF events) are downstream consequences of this root WIOC failure.
 
-2. **Scope**: How many nodes show the primary failure pattern vs how many are downstream victims. If no failure pattern exists, describe the node activity distribution.
+Scope: 3 nodes directly affected. 1 root cause node (52WIOCDCS02B), 2 downstream nodes (52PK02 with 800 I/O failures, 52CV01 with OTF on 7 modules). 52PK02 has the highest event volume but is a downstream victim.
 
-3. **Risk**: Immediate operational risk given unrecovered status and event severity. If no risk (normal operations), say so.
+Risk: HIGH -- unrecovered WIOC redundancy failure. Loss of wireless I/O coverage for critical field devices. No automatic recovery occurred within the data window.
 
-4. **Recommendation**: Specific next steps. If the root cause is a WIOC with wireless radio coverage issues, say that. If it's an ACN path failure, say that. If no action is needed, say "No action required — normal operating pattern.\"""",
+Recommendation: Immediate investigation of 52WIOCDCS02B hardware. Check wireless radio status, ACN COMM path to the controller, and physical layer connectivity. Review standby radio coverage. Schedule maintenance window for WIOC replacement if radio diagnostics show hardware failure.
+
+Now produce YOUR summary for the data above, following this same structure with exact node names and event counts from the actual JSON data.""",
         "stream": False,
         "options": {
-            "temperature": 0.4,
-            "num_predict": 1024,
+            "temperature": 0.3,
+            "num_predict": 1536,
         },
     }).encode()
 
@@ -471,7 +474,7 @@ Now produce a concise summary with these exact sections:
     )
 
     try:
-        with urllib.request.urlopen(req, timeout=120) as resp:
+        with urllib.request.urlopen(req, timeout=300) as resp:
             result = json.loads(resp.read())
             return result.get("response", "").strip()
     except Exception as e:
@@ -495,7 +498,7 @@ def main():
     print("Building structured JSON...", file=sys.stderr)
     json_data = build_json_summary(events, path)
 
-    print("Sending to Ollama (analysis:base)...", file=sys.stderr)
+    print(f"Sending to Ollama ({MODEL})...", file=sys.stderr)
     summary = summarize(json_data)
 
     print("\n" + "=" * 60)
