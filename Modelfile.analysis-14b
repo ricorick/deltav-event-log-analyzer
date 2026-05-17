@@ -1,0 +1,10 @@
+# analysis:14b — DeltaV tuned parameter defaults
+# Build: ollama create analysis:14b -f Modelfiles/analysis_14b_tuned
+#
+# Sets analytical defaults so ALL scripts/tools using this model
+# get temp=0.3 (deterministic) and num_predict=4096 (handles full
+# structured JSON payloads). Scripts can still override in their
+# API request if needed.
+FROM analysis:14b
+PARAMETER temperature 0.3
+PARAMETER num_predict 4096

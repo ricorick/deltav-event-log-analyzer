@@ -1,0 +1,1174 @@
+{
+  "file": "/mnt/c/Users/rickc/Hermes_Safe_Zone/event_logs/5_14_2026_logs.txt",
+  "total_events": 3470,
+  "total_nodes": 31,
+  "timespan": {
+    "start": "2026-05-14 00:00:12.319000",
+    "end": "2026-05-14 23:58:24.306000"
+  },
+  "node_list": [
+    "52CIOCDCS01",
+    "52CIOCDCS02",
+    "52CIOCDCS05",
+    "52CIOCSJB01",
+    "52CIOCSJB02",
+    "52CIOCSJB03",
+    "52CIOCSJB04",
+    "52CIOCSJB05",
+    "52CIOCSJB06",
+    "52CIOCSJB07",
+    "52CIOCSJB08",
+    "52CIOCSJB09",
+    "52CIOCSJB10",
+    "52CIOCSJB11",
+    "52PK01",
+    "52PK02",
+    "52PK03",
+    "52SZ01",
+    "52WIOCDCS02A",
+    "52WIOCDCS02B",
+    "52WIOCDCS05A",
+    "CLK52AMS01",
+    "CLK52AMS02",
+    "CLK52BAS01",
+    "CLK52EWS01",
+    "CLK52EWS02",
+    "CLK52HIS01",
+    "CLK52OWS01",
+    "CLK52OWS02",
+    "CLK52OWS03",
+    "CLK52PPS01"
+  ],
+  "top_nodes": [
+    {
+      "node": "52PK02",
+      "events": 786
+    },
+    {
+      "node": "CLK52HIS01",
+      "events": 440
+    },
+    {
+      "node": "CLK52OWS02",
+      "events": 418
+    },
+    {
+      "node": "52CIOCSJB06",
+      "events": 265
+    },
+    {
+      "node": "52WIOCDCS02A",
+      "events": 209
+    },
+    {
+      "node": "CLK52AMS02",
+      "events": 193
+    },
+    {
+      "node": "52PK01",
+      "events": 174
+    },
+    {
+      "node": "52WIOCDCS02B",
+      "events": 167
+    },
+    {
+      "node": "CLK52BAS01",
+      "events": 161
+    },
+    {
+      "node": "CLK52EWS01",
+      "events": 141
+    }
+  ],
+  "node_event_types": {
+    "52CIOCDCS01": {
+      "total_events": 7,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "other"
+      ]
+    },
+    "52CIOCDCS02": {
+      "total_events": 4,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 0,
+      "roles": [
+        "other"
+      ]
+    },
+    "52CIOCDCS05": {
+      "total_events": 6,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "other"
+      ]
+    },
+    "52CIOCSJB01": {
+      "total_events": 7,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "other"
+      ]
+    },
+    "52CIOCSJB02": {
+      "total_events": 7,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "other"
+      ]
+    },
+    "52CIOCSJB03": {
+      "total_events": 7,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "other"
+      ]
+    },
+    "52CIOCSJB04": {
+      "total_events": 7,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "other"
+      ]
+    },
+    "52CIOCSJB05": {
+      "total_events": 7,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "other"
+      ]
+    },
+    "52CIOCSJB06": {
+      "total_events": 265,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "other"
+      ]
+    },
+    "52CIOCSJB07": {
+      "total_events": 37,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "other"
+      ]
+    },
+    "52CIOCSJB08": {
+      "total_events": 7,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "other"
+      ]
+    },
+    "52CIOCSJB09": {
+      "total_events": 7,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "other"
+      ]
+    },
+    "52CIOCSJB10": {
+      "total_events": 7,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "other"
+      ]
+    },
+    "52CIOCSJB11": {
+      "total_events": 7,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "other"
+      ]
+    },
+    "52PK01": {
+      "total_events": 174,
+      "critical_alarms": 18,
+      "standby_events": 0,
+      "io_failure_events": 4,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 0,
+      "roles": [
+        "other"
+      ]
+    },
+    "52PK02": {
+      "total_events": 786,
+      "critical_alarms": 91,
+      "standby_events": 5,
+      "io_failure_events": 329,
+      "connection_failure_events": 36,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "io_failures",
+        "connection_failures_downstream"
+      ]
+    },
+    "52PK03": {
+      "total_events": 22,
+      "critical_alarms": 12,
+      "standby_events": 0,
+      "io_failure_events": 4,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 0,
+      "roles": [
+        "other"
+      ]
+    },
+    "52SZ01": {
+      "total_events": 49,
+      "critical_alarms": 3,
+      "standby_events": 0,
+      "io_failure_events": 5,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 0,
+      "roles": [
+        "other"
+      ]
+    },
+    "52WIOCDCS02A": {
+      "total_events": 209,
+      "critical_alarms": 0,
+      "standby_events": 106,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "standby_failures"
+      ]
+    },
+    "52WIOCDCS02B": {
+      "total_events": 167,
+      "critical_alarms": 0,
+      "standby_events": 83,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "standby_failures"
+      ]
+    },
+    "52WIOCDCS05A": {
+      "total_events": 29,
+      "critical_alarms": 0,
+      "standby_events": 19,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "standby_failures"
+      ]
+    },
+    "CLK52AMS01": {
+      "total_events": 139,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 96,
+      "referenced_as_failure_target": 0,
+      "roles": [
+        "connection_failures_downstream"
+      ]
+    },
+    "CLK52AMS02": {
+      "total_events": 193,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 0,
+      "roles": [
+        "downstream_consumer"
+      ]
+    },
+    "CLK52BAS01": {
+      "total_events": 161,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 0,
+      "roles": [
+        "downstream_consumer"
+      ]
+    },
+    "CLK52EWS01": {
+      "total_events": 141,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 0,
+      "roles": [
+        "downstream_consumer"
+      ]
+    },
+    "CLK52EWS02": {
+      "total_events": 12,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 0,
+      "roles": [
+        "other"
+      ]
+    },
+    "CLK52HIS01": {
+      "total_events": 440,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 88,
+      "referenced_as_failure_target": 0,
+      "roles": [
+        "connection_failures_downstream"
+      ]
+    },
+    "CLK52OWS01": {
+      "total_events": 43,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 0,
+      "roles": [
+        "other"
+      ]
+    },
+    "CLK52OWS02": {
+      "total_events": 418,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 0,
+      "roles": [
+        "other"
+      ]
+    },
+    "CLK52OWS03": {
+      "total_events": 67,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 0,
+      "roles": [
+        "other"
+      ]
+    },
+    "CLK52PPS01": {
+      "total_events": 38,
+      "critical_alarms": 0,
+      "standby_events": 0,
+      "io_failure_events": 0,
+      "connection_failure_events": 2,
+      "referenced_as_failure_target": 1,
+      "roles": [
+        "other"
+      ]
+    }
+  },
+  "downstream_references": {
+    "52CIOCDCS01": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52CIOCDCS02": [
+      "CLK52PPS01"
+    ],
+    "52CIOCDCS05": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52CIOCSJB01": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52CIOCSJB02": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52CIOCSJB03": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52CIOCSJB04": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52CIOCSJB05": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52CIOCSJB06": [
+      "52PK02",
+      "CLK52AMS02",
+      "CLK52BAS01",
+      "CLK52EWS01",
+      "CLK52PPS01"
+    ],
+    "52CIOCSJB07": [
+      "52PK02",
+      "CLK52AMS02",
+      "CLK52BAS01",
+      "CLK52EWS01",
+      "CLK52PPS01"
+    ],
+    "52CIOCSJB08": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52CIOCSJB09": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52CIOCSJB10": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52CIOCSJB11": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52PK01": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52PK02": [
+      "52CIOCDCS01",
+      "52CIOCDCS05",
+      "52CIOCSJB01",
+      "52CIOCSJB02",
+      "52CIOCSJB03",
+      "52CIOCSJB04",
+      "52CIOCSJB05",
+      "52CIOCSJB06",
+      "52CIOCSJB07",
+      "52CIOCSJB08",
+      "52CIOCSJB09",
+      "52CIOCSJB10",
+      "52CIOCSJB11",
+      "52PK01",
+      "52PK03",
+      "52SZ01",
+      "52WIOCDCS02A",
+      "52WIOCDCS02B",
+      "52WIOCDCS05A",
+      "CLK52AMS01",
+      "CLK52AMS02",
+      "CLK52BAS01",
+      "CLK52EWS01",
+      "CLK52EWS02",
+      "CLK52HIS01",
+      "CLK52OWS01",
+      "CLK52OWS02",
+      "CLK52OWS03",
+      "CLK52PPS01"
+    ],
+    "52PK03": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52SZ01": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52WIOCDCS02A": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52WIOCDCS02B": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "52WIOCDCS05A": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "CLK52AMS01": [
+      "52CIOCDCS02",
+      "52CIOCDCS05",
+      "52CIOCSJB01",
+      "52CIOCSJB03",
+      "52CIOCSJB06",
+      "52CIOCSJB09",
+      "52CIOCSJB10",
+      "52CIOCSJB11",
+      "52PK02",
+      "52WIOCDCS05A",
+      "CLK52PPS01"
+    ],
+    "CLK52AMS02": [
+      "52CIOCSJB06",
+      "52CIOCSJB07",
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "CLK52BAS01": [
+      "52CIOCSJB06",
+      "52CIOCSJB07",
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "CLK52EWS01": [
+      "52CIOCSJB06",
+      "52CIOCSJB07",
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "CLK52EWS02": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "CLK52HIS01": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "CLK52OWS01": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "CLK52OWS02": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "CLK52OWS03": [
+      "52PK02",
+      "CLK52PPS01"
+    ],
+    "CLK52PPS01": [
+      "52CIOCSJB08",
+      "52PK02"
+    ]
+  },
+  "connection_failure_targets": {
+    "52PK02": 182,
+    "CLK52PPS01": 62,
+    "52CIOCSJB07": 2,
+    "52CIOCSJB08": 2,
+    "52CIOCSJB01": 2,
+    "52CIOCDCS01": 2,
+    "52CIOCDCS05": 2,
+    "52CIOCSJB02": 2,
+    "52CIOCSJB04": 2,
+    "52CIOCSJB06": 2
+  },
+  "priority": {
+    "4-INFO": 2028,
+    "09-DCS_WARNING": 320,
+    "07-SIS_ADVISORY": 11,
+    "06-DCS_ADVISORY": 384,
+    "13-DCS_CRITICAL": 115,
+    "14-SIS_CRITICAL": 3,
+    "15-CRITICAL": 6,
+    "10-SIS_WARNING": 12,
+    "04-ALERT": 10,
+    "11-WARNING": 1
+  },
+  "analysis_hints": {
+    "has_unrecovered_outages": true,
+    "has_connection_failure_targets": true,
+    "has_paired_outages": true,
+    "likely_normal_operations": false
+  },
+  "critical_alarms": 124,
+  "sections": {
+    "alarms": {
+      "count": 2890,
+      "top_descriptions": [
+        {
+          "description": "Switched to Secondary ACN  -  52CIOCSJB06",
+          "count": 213
+        },
+        {
+          "description": "Switched to Primary ACN  -  52CIOCSJB06",
+          "count": 213
+        },
+        {
+          "description": "Redundancy: Not Communicating - Standby",
+          "count": 172
+        },
+        {
+          "description": "Previous node status was: BAD INTEGRITY",
+          "count": 156
+        },
+        {
+          "description": "Previous node status was: OK",
+          "count": 156
+        },
+        {
+          "description": "I/O Input Failure",
+          "count": 107
+        },
+        {
+          "description": "Inputs Transfer Failure",
+          "count": 97
+        },
+        {
+          "description": "Device Connection Failure  -  52PK02",
+          "count": 91
+        },
+        {
+          "description": "Device Connection Opened  -  52PK02",
+          "count": 91
+        },
+        {
+          "description": "Module Error: 0 or Module Status: 0",
+          "count": 86
+        }
+      ]
+    },
+    "standby_redundancy": {
+      "total_events": 852,
+      "nodes_affected": 31,
+      "nodes_with_standby_activity": [
+        "52CIOCDCS01",
+        "52CIOCDCS02",
+        "52CIOCDCS05",
+        "52CIOCSJB01",
+        "52CIOCSJB02",
+        "52CIOCSJB03",
+        "52CIOCSJB04",
+        "52CIOCSJB05",
+        "52CIOCSJB06",
+        "52CIOCSJB07",
+        "52CIOCSJB08",
+        "52CIOCSJB09",
+        "52CIOCSJB10",
+        "52CIOCSJB11",
+        "52PK01",
+        "52PK02",
+        "52PK03",
+        "52SZ01",
+        "52WIOCDCS02A",
+        "52WIOCDCS02B",
+        "52WIOCDCS05A",
+        "CLK52AMS01",
+        "CLK52AMS02",
+        "CLK52BAS01",
+        "CLK52EWS01",
+        "CLK52EWS02",
+        "CLK52HIS01",
+        "CLK52OWS01",
+        "CLK52OWS02",
+        "CLK52OWS03",
+        "CLK52PPS01"
+      ],
+      "recovery_summary": {
+        "total_paired_outages": 18,
+        "avg_downtime_min": 44.9,
+        "total_downtime_min": 809.0,
+        "max_downtime_secs": 40518
+      },
+      "unrecovered_outages": [
+        {
+          "node": "52WIOCDCS05A",
+          "down_time": "2026-05-14 17:35:48.883000",
+          "description": "Redundancy: Standby Unavailable"
+        },
+        {
+          "node": "52WIOCDCS02A",
+          "down_time": "2026-05-14 16:38:29.814000",
+          "description": "Redundancy: Standby Unavailable"
+        }
+      ],
+      "outages": [
+        {
+          "node": "52WIOCDCS05A",
+          "downtime_secs": 1,
+          "downtime_min": 0.0,
+          "down_time": "2026-05-14 05:05:57.885000",
+          "up_time": "2026-05-14 05:05:58.885000"
+        },
+        {
+          "node": "52WIOCDCS05A",
+          "downtime_secs": 3619,
+          "downtime_min": 60.3,
+          "down_time": "2026-05-14 05:10:38.881000",
+          "up_time": "2026-05-14 06:10:57.885000"
+        },
+        {
+          "node": "52WIOCDCS05A",
+          "downtime_secs": 163,
+          "downtime_min": 2.7,
+          "down_time": "2026-05-14 06:10:58.885000",
+          "up_time": "2026-05-14 06:13:42.881000"
+        },
+        {
+          "node": "52WIOCDCS05A",
+          "downtime_secs": 40518,
+          "downtime_min": 675.3,
+          "down_time": "2026-05-14 06:15:38.881000",
+          "up_time": "2026-05-14 17:30:57.879000"
+        },
+        {
+          "node": "52WIOCDCS05A",
+          "downtime_secs": 289,
+          "downtime_min": 4.8,
+          "down_time": "2026-05-14 17:30:58.879000",
+          "up_time": "2026-05-14 17:35:47.883000"
+        },
+        {
+          "node": "52WIOCDCS02A",
+          "downtime_secs": 1119,
+          "downtime_min": 18.7,
+          "down_time": "2026-05-14 10:45:19.811000",
+          "up_time": "2026-05-14 11:03:59.810000"
+        },
+        {
+          "node": "52WIOCDCS02A",
+          "downtime_secs": 0,
+          "downtime_min": 0.0,
+          "down_time": "2026-05-14 11:30:48.816000",
+          "up_time": "2026-05-14 11:30:49.804000"
+        },
+        {
+          "node": "52WIOCDCS02A",
+          "downtime_secs": 100,
+          "downtime_min": 1.7,
+          "down_time": "2026-05-14 11:30:49.805000",
+          "up_time": "2026-05-14 11:32:29.805000"
+        },
+        {
+          "node": "52WIOCDCS02A",
+          "downtime_secs": 1219,
+          "downtime_min": 20.3,
+          "down_time": "2026-05-14 11:33:09.811000",
+          "up_time": "2026-05-14 11:53:28.811000"
+        },
+        {
+          "node": "52WIOCDCS02A",
+          "downtime_secs": 0,
+          "downtime_min": 0.0,
+          "down_time": "2026-05-14 11:53:29.812000",
+          "up_time": "2026-05-14 11:53:29.813000"
+        },
+        {
+          "node": "52WIOCDCS02A",
+          "downtime_secs": 39,
+          "downtime_min": 0.7,
+          "down_time": "2026-05-14 15:02:49.813000",
+          "up_time": "2026-05-14 15:03:29.809000"
+        },
+        {
+          "node": "52WIOCDCS02A",
+          "downtime_secs": 0,
+          "downtime_min": 0.0,
+          "down_time": "2026-05-14 16:30:38.831000",
+          "up_time": "2026-05-14 16:30:39.806000"
+        },
+        {
+          "node": "52WIOCDCS02A",
+          "downtime_secs": 252,
+          "downtime_min": 4.2,
+          "down_time": "2026-05-14 16:30:39.808000",
+          "up_time": "2026-05-14 16:34:51.813000"
+        },
+        {
+          "node": "52WIOCDCS02A",
+          "downtime_secs": 27,
+          "downtime_min": 0.5,
+          "down_time": "2026-05-14 16:38:01.806000",
+          "up_time": "2026-05-14 16:38:28.814000"
+        },
+        {
+          "node": "52WIOCDCS02B",
+          "downtime_secs": 0,
+          "downtime_min": 0.0,
+          "down_time": "2026-05-14 10:45:38.918000",
+          "up_time": "2026-05-14 10:45:38.919000"
+        },
+        {
+          "node": "52WIOCDCS02B",
+          "downtime_secs": 1079,
+          "downtime_min": 18.0,
+          "down_time": "2026-05-14 10:45:58.927000",
+          "up_time": "2026-05-14 11:03:58.922000"
+        },
+        {
+          "node": "52PK02",
+          "downtime_secs": 60,
+          "downtime_min": 1.0,
+          "down_time": "2026-05-14 15:02:40.395000",
+          "up_time": "2026-05-14 15:03:40.910000"
+        },
+        {
+          "node": "52PK02",
+          "downtime_secs": 45,
+          "downtime_min": 0.8,
+          "down_time": "2026-05-14 15:06:00.913000",
+          "up_time": "2026-05-14 15:06:46.421000"
+        }
+      ]
+    },
+    "bad_failure": {
+      "count": 159,
+      "top_parameters": [
+        {
+          "parameter": "52CIOCSJB11",
+          "count": 128
+        },
+        {
+          "parameter": "52WIOCDCS02A",
+          "count": 12
+        },
+        {
+          "parameter": "52CIOCSJB07",
+          "count": 10
+        },
+        {
+          "parameter": "52WIOCDCS05A",
+          "count": 3
+        },
+        {
+          "parameter": "REDU",
+          "count": 2
+        },
+        {
+          "parameter": "52SZ01",
+          "count": 1
+        },
+        {
+          "parameter": "52WIOCDCS02B",
+          "count": 1
+        },
+        {
+          "parameter": "CLK52PPS01",
+          "count": 1
+        },
+        {
+          "parameter": "",
+          "count": 1
+        }
+      ]
+    },
+    "device_connection_events": {
+      "count": 1294,
+      "patterns": [
+        {
+          "node": "CLK52AMS02",
+          "state": "ACTIVE",
+          "desc": "Switched to Secondary ACN  -  52CIOCSJB06",
+          "count": 84
+        },
+        {
+          "node": "CLK52AMS02",
+          "state": "ACTIVE",
+          "desc": "Switched to Primary ACN  -  52CIOCSJB06",
+          "count": 84
+        },
+        {
+          "node": "CLK52BAS01",
+          "state": "ACTIVE",
+          "desc": "Switched to Secondary ACN  -  52CIOCSJB06",
+          "count": 69
+        },
+        {
+          "node": "CLK52BAS01",
+          "state": "ACTIVE",
+          "desc": "Switched to Primary ACN  -  52CIOCSJB06",
+          "count": 69
+        },
+        {
+          "node": "CLK52EWS01",
+          "state": "ACTIVE",
+          "desc": "Switched to Secondary ACN  -  52CIOCSJB06",
+          "count": 57
+        }
+      ]
+    },
+    "event_limited": {
+      "count": 10,
+      "by_module": [
+        {
+          "node": "52PK02",
+          "module": "PI56221",
+          "count": 3
+        },
+        {
+          "node": "52PK02",
+          "module": "TI50728",
+          "count": 2
+        },
+        {
+          "node": "52PK02",
+          "module": "LMSWGR74_AI01",
+          "count": 1
+        },
+        {
+          "node": "52PK02",
+          "module": "LMSWGR75_AI01",
+          "count": 1
+        },
+        {
+          "node": "52PK02",
+          "module": "LMSWGR76_DI01",
+          "count": 1
+        },
+        {
+          "node": "52PK02",
+          "module": "LMP5302A_AI02",
+          "count": 1
+        },
+        {
+          "node": "52PK02",
+          "module": "LMP5302B_AI02",
+          "count": 1
+        }
+      ]
+    },
+    "outputs_transfer_failure": {
+      "count": 170,
+      "by_module": [
+        {
+          "node": "52PK02",
+          "module": "PI56221",
+          "count": 6
+        },
+        {
+          "node": "52PK02",
+          "module": "LMSWGR74_AI01",
+          "count": 6
+        },
+        {
+          "node": "52PK02",
+          "module": "LMSWGR75_AI01",
+          "count": 6
+        },
+        {
+          "node": "52PK02",
+          "module": "LMSWGR76_DI01",
+          "count": 6
+        },
+        {
+          "node": "52PK02",
+          "module": "LMP5302A_AI02",
+          "count": 6
+        },
+        {
+          "node": "52PK02",
+          "module": "LMP5302B_AI02",
+          "count": 6
+        },
+        {
+          "node": "52PK02",
+          "module": "LMP5201C_AI01",
+          "count": 5
+        },
+        {
+          "node": "52PK02",
+          "module": "LMP5201C_DI01",
+          "count": 5
+        },
+        {
+          "node": "52PK02",
+          "module": "LM75TIE2_DI01",
+          "count": 5
+        },
+        {
+          "node": "52PK02",
+          "module": "LMEM5299A_AI01",
+          "count": 5
+        }
+      ]
+    },
+    "hart": {
+      "count": 0,
+      "top_descriptions": []
+    },
+    "process_events": {
+      "count": 512,
+      "by_module": [
+        {
+          "node": "52PK02",
+          "module": "PI56221",
+          "description": "I/O Input Failure",
+          "count": 33
+        },
+        {
+          "node": "52PK02",
+          "module": "PI56221",
+          "description": "Module Failure Active",
+          "count": 20
+        },
+        {
+          "node": "CLK52HIS01",
+          "module": "FY27211",
+          "description": "@All tracking conditions cleared.@",
+          "count": 12
+        },
+        {
+          "node": "CLK52HIS01",
+          "module": "FY27211",
+          "description": "Tracking Condition 1 Active. OUT value: 0 : Input Deviation Alarm",
+          "count": 12
+        },
+        {
+          "node": "52PK02",
+          "module": "TI50728",
+          "description": "I/O Input Failure",
+          "count": 8
+        },
+        {
+          "node": "52PK02",
+          "module": "PI56221",
+          "description": "Inputs Transfer Failure",
+          "count": 6
+        },
+        {
+          "node": "52PK02",
+          "module": "LMSWGR74_AI01",
+          "description": "Outputs Transfer Failure",
+          "count": 6
+        },
+        {
+          "node": "52PK02",
+          "module": "LMSWGR75_AI01",
+          "description": "Outputs Transfer Failure",
+          "count": 6
+        },
+        {
+          "node": "52PK02",
+          "module": "LMSWGR76_DI01",
+          "description": "Inputs Transfer Failure",
+          "count": 6
+        },
+        {
+          "node": "52PK02",
+          "module": "LMP5302A_AI02",
+          "description": "Outputs Transfer Failure",
+          "count": 6
+        }
+      ]
+    }
+  },
+  "top_event_patterns": [
+    {
+      "node": "CLK52HIS01",
+      "parameter": "52CIOCSJB11",
+      "state": "BAD INTEGRITY",
+      "description": "Previous node status was: OK",
+      "count": 128
+    },
+    {
+      "node": "CLK52HIS01",
+      "parameter": "52CIOCSJB11",
+      "state": "OK",
+      "description": "Previous node status was: BAD INTEGRITY",
+      "count": 128
+    },
+    {
+      "node": "52PK02",
+      "parameter": "",
+      "state": "ACTIVE",
+      "description": "I/O Input Failure",
+      "count": 99
+    },
+    {
+      "node": "52PK02",
+      "parameter": "",
+      "state": "ACTIVE",
+      "description": "Inputs Transfer Failure",
+      "count": 96
+    },
+    {
+      "node": "CLK52AMS02",
+      "parameter": "ACN COMM",
+      "state": "ACTIVE",
+      "description": "Switched to Secondary ACN  -  52CIOCSJB06",
+      "count": 84
+    },
+    {
+      "node": "CLK52AMS02",
+      "parameter": "ACN COMM",
+      "state": "ACTIVE",
+      "description": "Switched to Primary ACN  -  52CIOCSJB06",
+      "count": 84
+    },
+    {
+      "node": "CLK52BAS01",
+      "parameter": "ACN COMM",
+      "state": "ACTIVE",
+      "description": "Switched to Secondary ACN  -  52CIOCSJB06",
+      "count": 69
+    },
+    {
+      "node": "CLK52BAS01",
+      "parameter": "ACN COMM",
+      "state": "ACTIVE",
+      "description": "Switched to Primary ACN  -  52CIOCSJB06",
+      "count": 69
+    },
+    {
+      "node": "52PK02",
+      "parameter": "",
+      "state": "ACTIVE",
+      "description": "Outputs Transfer Failure",
+      "count": 65
+    },
+    {
+      "node": "CLK52EWS01",
+      "parameter": "ACN COMM",
+      "state": "ACTIVE",
+      "description": "Switched to Secondary ACN  -  52CIOCSJB06",
+      "count": 57
+    }
+  ]
+}

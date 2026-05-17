@@ -17,7 +17,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 
 OLLAMA_URL = "http://172.29.64.1:11434/api/generate"
-MODEL = "analysis:7b"
+MODEL = "analysis:14b"
 
 
 def parse_log(path: str) -> list:
@@ -98,11 +98,12 @@ def _node_refs(events: list) -> dict:
     """Detect which nodes reference OTHER nodes in event descriptions.
     Returns downstream_deps: {node: [other_nodes_it_references]}"""
     deps = defaultdict(set)
+    all_nodes = set(node(e2) for e2 in events)  # compute ONCE, not per event
     for e in events:
         n = node(e)
         d = desc(e)
         # Check if description references another known node
-        for other in set(node(e2) for e2 in events):
+        for other in all_nodes:
             if other != n and other in d:
                 deps[n].add(other)
     return {n: sorted(r) for n, r in sorted(deps.items())}
@@ -183,8 +184,13 @@ def build_json_summary(events: list, filename: str) -> dict:
 
     # Node role: categorize what each node primarily does in the event stream
     node_event_types = {}
+    # Group events by node ONCE instead of filtering per node
+    events_by_node = defaultdict(list)
+    for e in events:
+        events_by_node[node(e)].append(e)
+
     for n in sorted(node_set):
-        n_events = [e for e in events if node(e) == n]
+        n_events = events_by_node[n]
         n_alarms = sum(1 for e in n_events if "CRITICAL" in str(e.get("Level", "")).upper())
         n_conn_fail = sum(1 for e in n_events if "Connection Failure" in desc(e) or "Connection Opened" in desc(e))
         n_stby = sum(1 for e in n_events if "STANDBY" in desc(e).upper() or "FAILOVER" in desc(e).upper()
@@ -429,41 +435,45 @@ def summarize(json_data: dict) -> str:
         return generate_normal_ops_summary(json_data)
     payload = json.dumps({
         "model": MODEL,
-        "prompt": f"""Here is the structured event log data in JSON:
+        "prompt": f"""You are a DeltaV process control expert. Below is structured event log data in JSON. Analyze it and produce a root-cause summary.
 
+THE DATA:
 {json.dumps(json_data, indent=2)}
 
-You are a DeltaV process control expert analyzing structured event log data for root-cause analysis. Work through these steps before producing your output.
+INSTRUCTIONS:
+Read the data carefully, then produce exactly 4 sections: Root Cause, Scope, Risk, Recommendation.
 
-REASONING STEPS (internal -- do not output these):
+First, check analysis_hints in the data. These are computed facts -- trust them literally:
+- has_unrecovered_outages: the TRUE/FALSE value tells you if ANY node never recovered from standby
+- has_connection_failure_targets: which nodes are being failed TO by other nodes
+- If likely_normal_operations is TRUE, output that finding instead of inventing a root cause
 
-1. READ analysis_hints first -- check has_unrecovered_outages and has_connection_failure_targets. If both are false, the data likely reflects normal operations -- do not invent a root cause.
+WORKING RULES (follow these in order, step 1 is the most important):
 
-2. IDENTIFY THE SOURCE NODE -- if has_unrecovered_outages is TRUE, check standby_redundancy.unrecovered_outages for nodes with permanent failures. Then check connection_failure_targets for nodes that are the TARGET of connection failures (not the node reporting them).
+1. CHECK FOR NETWORK FAILURE BEFORE ANYTHING ELSE. Look at device_connection_events (ACN COMM) and top_event_patterns. If any of these are true, the root cause is NETWORK FAILURE, not I/O hardware:
+   - Multiple nodes show simultaneous "Switched to Primary/Secondary ACN" events clustered within a short time window (sub-second to a few seconds)
+   - A single node has high I/O failure counts across MANY different modules simultaneously — this means the node lost network to its I/O, not that all those modules failed independently
+   - Connection failure targets show nodes being referenced as failure destinations by many other nodes
+   If network failure is identified, your Root Cause section must start with: "NETWORK FAILURE — [switch/fiber/connection issue]" followed by the evidence. Do NOT attribute the resulting I/O failures to hardware.
 
-3. DOWNSTREAM EFFECTS ARE NOT ROOT CAUSES -- a node with I/O Input Failure that also references another node in its descriptions is a downstream victim. High event volume on a downstream node is a consequence, not a cause.
+2. If no network failure: check unrecovered outages. A node that went into standby and never came back is hardware-root-cause. If has_unrecovered_outages is FALSE, do not use the word "unrecovered" in your root cause.
 
-4. PERMANENT FAILURES OVERRIDE INTERMITTENT -- a node with unrecovered outages (never came back) is more significant than one with many events that all recovered.
+3. Identify causal direction: nodes with high I/O failures whose descriptions mention OTHER nodes by name are downstream victims, not root causes. The node being NAMED in other nodes' descriptions is likelier to be the source.
 
-5. CHECK THE TIMELINE -- look at standby_redundancy.outages for the actual failure sequence. Multiple short-duration outages followed by longer ones suggests a flapping failure.
+4. Check standby_redundancy.outages for timeline. Multiple short outages followed by longer ones = flapping failure (wearing component).
 
-Now produce a concise root-cause summary with these exact sections. Use the example format below as a reference for structure, but ADAPT to the actual data -- do not copy the example node names or counts verbatim.
+5. Mention specific module names (e.g. PI56221, LMP5302A_AI01) when relevant, but only as examples, not root cause attribution unless network failure was ruled out.
 
-EXAMPLE OUTPUT (reference only):
-Root Cause: 52WIOCDCS02B -- unrecovered standby failure with 160 events. This WIOC lost redundancy at 02:30:00 on 05/02/2026 and never recovered. All other affected nodes (52PK02 with 800 I/O failures, 52CV01 with OTF events) are downstream consequences of this root WIOC failure.
+OUTPUT FORMAT (use these exact section headers):
 
-Scope: 3 nodes directly affected. 1 root cause node (52WIOCDCS02B), 2 downstream nodes (52PK02 with 800 I/O failures, 52CV01 with OTF on 7 modules). 52PK02 has the highest event volume but is a downstream victim.
+Root Cause: [NODE NAME] -- [brief description of the failure pattern]. [2-3 sentences explaining what happened, with specific event counts and timestamps from the data].
 
-Risk: HIGH -- unrecovered WIOC redundancy failure. Loss of wireless I/O coverage for critical field devices. No automatic recovery occurred within the data window.
+Scope: [Number] nodes affected. Root node(s): [names]. Downstream: [names with key event types and counts]. Notable secondary findings: [anything else important like flapping CIOC, concurrent events].
 
-Recommendation: Immediate investigation of 52WIOCDCS02B hardware. Check wireless radio status, ACN COMM path to the controller, and physical layer connectivity. Review standby radio coverage. Schedule maintenance window for WIOC replacement if radio diagnostics show hardware failure.
+Risk: [LOW/MEDIUM/HIGH] -- [specific risk statement. Base this on the actual data -- not all failures are HIGH].
 
-Now produce YOUR summary for the data above, following this same structure with exact node names and event counts from the actual JSON data.""",
-        "stream": False,
-        "options": {
-            "temperature": 0.3,
-            "num_predict": 1536,
-        },
+Recommendation: [Specific, actionable steps based on the actual failure pattern in the data].""",
+        "stream": True,
     }).encode()
 
     req = urllib.request.Request(
@@ -474,10 +484,19 @@ Now produce YOUR summary for the data above, following this same structure with 
     )
 
     try:
-        with urllib.request.urlopen(req, timeout=300) as resp:
-            result = json.loads(resp.read())
-            return result.get("response", "").strip()
+        response_text = ""
+        with urllib.request.urlopen(req, timeout=600) as resp:
+            for line in resp:
+                if not line.strip():
+                    continue
+                chunk = json.loads(line.decode())
+                token = chunk.get("response", "")
+                print(token, end="", flush=True)
+                response_text += token
+        print()  # newline after stream ends
+        return response_text.strip()
     except Exception as e:
+        print()  # newline after any partial stream
         return f"[Ollama error] {e}"
 
 
@@ -499,10 +518,8 @@ def main():
     json_data = build_json_summary(events, path)
 
     print(f"Sending to Ollama ({MODEL})...", file=sys.stderr)
+    print("\n" + "=" * 60, flush=True)
     summary = summarize(json_data)
-
-    print("\n" + "=" * 60)
-    print(summary)
     print("=" * 60)
 
 

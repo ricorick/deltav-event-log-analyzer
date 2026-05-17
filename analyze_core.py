@@ -247,6 +247,72 @@ def analyze(events: list, filename: str = ""):
                 total_min = sum(r["duration_min"] for r in recs)
                 print(f"    {n}: {len(recs)} outage(s), avg {avg_min:.1f} min, total {total_min:.1f} min, max {max_sec:.0f}s")
 
+    # ── CASCADE DETECTION ──
+    if stby:
+        cascade_threshold = 3  # min nodes to flag as cascade
+        # Parse "Switched to <network> ACN - <target>" patterns
+        cascade_windows = []  # (dt, target, source_node, event)
+        for e in stby_sorted:
+            d = desc(e)
+            dt = e.get("_dt")
+            if not dt:
+                continue
+            # Match: "Switched to Primary/Secondary ACN  -  NODENAME"
+            if "Switched to" in d and "ACN" in d and " - " in d:
+                parts = d.split(" - ")
+                if len(parts) >= 2:
+                    target = parts[-1].strip()
+                    if target:
+                        cascade_windows.append((dt, target, node(e), e))
+        if cascade_windows:
+            # Sort by timestamp
+            cascade_windows.sort(key=lambda x: x[0])
+            # Group into 5-second windows
+            windows = []
+            current_window = None
+            current_entries = []
+            for dt, target, src, ev in cascade_windows:
+                if current_window is None:
+                    current_window = dt
+                if (dt - current_window).total_seconds() <= 5:
+                    current_entries.append((target, src, ev))
+                else:
+                    windows.append((current_window, current_entries))
+                    current_window = dt
+                    current_entries = [(target, src, ev)]
+            if current_entries:
+                windows.append((current_window, current_entries))
+            # Find cascades (multiple nodes referencing same target in a window)
+            cascades = []
+            for win_start, entries in windows:
+                by_target = defaultdict(list)
+                for tgt, src, _ in entries:
+                    by_target[tgt].append(src)
+                for tgt, srcs in sorted(by_target.items(), key=lambda x: -len(x[1])):
+                    unique_srcs = list(dict.fromkeys(srcs))  # preserve order, dedupe
+                    if len(unique_srcs) >= cascade_threshold:
+                        # Get direction from first event in window for this target
+                        first_ev = entries[0][2]
+                        direction = "to Primary" if "Primary" in desc(first_ev) else "to Secondary"
+                        cascades.append({
+                            "time": str(win_start),
+                            "target": tgt,
+                            "source_count": len(unique_srcs),
+                            "sources": unique_srcs,
+                            "direction": direction,
+                        })
+            if cascades:
+                cascades.sort(key=lambda x: -x["source_count"])
+                _section("CASCADE DETECTED")
+                print(f"  {_YELLOW}Time-clustered ACN switches (>{cascade_threshold} nodes, 5s window):{_RESET}")
+                for c in cascades:
+                    count_tag = f"{_RED}{c['source_count']} nodes{_RESET}" if c['source_count'] > 10 else f"{_YELLOW}{c['source_count']} nodes{_RESET}"
+                    print(f"    {c['time']}  --  {count_tag} switched {c['direction']} ACN referencing {_BOLD}{c['target']}{_RESET}")
+                    if len(c['sources']) <= 8:
+                        print(f"      Nodes: {', '.join(c['sources'])}")
+                    else:
+                        print(f"      Nodes: {', '.join(c['sources'][:6])} ... +{len(c['sources'])-6} more")
+
     # ── ALARMS ──
     if alarms:
         _section("ALARMS")

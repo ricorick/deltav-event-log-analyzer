@@ -32,7 +32,7 @@ from datetime import datetime
 from analyze_core import parse_log, node, mod, desc
 
 OLLAMA_URL = "http://172.29.64.1:11434/api/generate"
-MODEL = "analysis:7b"
+MODEL = "analysis:14b"
 
 
 # ── ANALYSIS ───────────────────────────────────────────────────────────
@@ -407,11 +407,7 @@ def summarize(ops_data: dict) -> str:
             "ANOMALIES: <specifics or None detected>\n"
             "RECOMMENDATION: <specific or None required>\n"
         ),
-        "stream": False,
-        "options": {
-            "temperature": 0.3,
-            "num_predict": 1024,
-        },
+        "stream": True,
     }).encode()
 
     req = urllib.request.Request(
@@ -422,10 +418,19 @@ def summarize(ops_data: dict) -> str:
     )
 
     try:
-        with urllib.request.urlopen(req, timeout=300) as resp:
-            result = json.loads(resp.read())
-            return result.get("response", "").strip()
+        response_text = ""
+        with urllib.request.urlopen(req, timeout=600) as resp:
+            for line in resp:
+                if not line.strip():
+                    continue
+                chunk = json.loads(line.decode())
+                token = chunk.get("response", "")
+                print(token, end="", flush=True)
+                response_text += token
+        print()  # newline after stream ends
+        return response_text.strip()
     except Exception as e:
+        print()  # newline after any partial stream
         return f"[Ollama error] {e}"
 
 
@@ -456,10 +461,8 @@ def main():
             print(f"  -> {d}", file=sys.stderr)
 
     print(f"Sending to Ollama ({MODEL})...", file=sys.stderr)
+    print("\n" + "=" * 60, flush=True)
     summary = summarize(ops_data)
-
-    print("\n" + "=" * 60)
-    print(summary)
     print("=" * 60)
 
 
