@@ -19,6 +19,9 @@ python analyze_core.py /load event_log.txt /summary
 
 # LLM-powered root-cause analysis (requires local Ollama)
 python summarize_analysis.py /path/to/event_log.txt
+
+# Operational health assessment (requires local Ollama)
+python ops_analyzer.py /path/to/event_log.txt
 ```
 
 ---
@@ -37,7 +40,11 @@ interactive REPL. Run it with or without a file argument.
 
 **`summarize_analysis.py`** — Consumes the output of `analyze_core.py` (no
 duplicate parsing). Sends structured event data to a local Ollama model for
-causal root-cause analysis. Uses `analysis:base` (qwen2.5:3b).
+causal root-cause analysis. Uses `analysis:14b` (qwen2.5:14b).
+
+**`ops_analyzer.py`** — Operational health assessment tool. Scores event logs
+0-100 using hard-coded deduction rules plus LLM narrative. Designed for
+routine health checks rather than incident RCA. Uses `analysis:14b` directly.
 
 **`repl.py`** — Earlier REPL implementation. Contains its own (now-deprecated)
 parser. Maintaining for reference only — new work should use `analyze_core.py`.
@@ -59,6 +66,7 @@ All deprecated.
 /node <name>   Show all events for a specific node
 /acn           ACN COMM network switch analysis
 /bad           BAD INTEGRITY analysis
+/cascade       Port Cascade analysis — identifies WIOC-hopping cascading port errors
 /standby       Standby/redundancy recovery analysis
 /alarms        Alarm summary
 /interlocks    Interlock cycling analysis
@@ -82,11 +90,14 @@ All deprecated.
 
 ```bash
 # Prerequisites
-ollama pull qwen2.5:3b
-ollama create analysis:base -f Modelfiles/analysis
+ollama pull qwen2.5:14b
+ollama create analysis:14b -f Modelfiles/analysis_14b
 
 # Run analysis
 python summarize_analysis.py event_log.txt
+
+# Or run ops health check
+python ops_analyzer.py event_log.txt
 ```
 
 The script:
@@ -99,18 +110,30 @@ No data leaves your machine.
 
 ---
 
+## Model History
+
+| Period | Model | Notes |
+|--------|-------|-------|
+| Initial | analysis:base (qwen2.5:3b) | Severely truncated output, hallucinated counts |
+| Upgrade 1 | analysis:7b (qwen2.5:7b) | Reliable, ~4.7 GB, ~18 tok/s on iGPU |
+| Current | analysis:14b (qwen2.5:14b) | Best accuracy, ~9 GB, handles 29K prompt. See README_UPDATES.md |
+| Rejected | qwen3.5:9b | HTTP 500 OOM on large prompts, hallucinated ghost nodes, QwQ output quirks |
+
+---
+
 ## Analysis Priority
 
 Reports organize findings by operational impact:
 
 1. **ACN COMM Network Instability** — switch counts, dominant nodes, timing
-2. **BAD INTEGRITY** — which nodes, still bad vs resolved
-3. **Standby/Redundancy** — recovery times, pattern detection
-4. **I/O Failures** — transfer failures by module
-5. **Interlock Cycling** — modules cycling, tracking conditions
-6. **Hardware Alarms** — hardware category breakdown
-7. **Security Events** — failed logon attempts
-8. **Process Events** — deviation alarms, tracking
+2. **Cascade Port Errors** — WIOC-hopping cascading failures (collateral from ACN flapping)
+3. **BAD INTEGRITY** — which nodes, still bad vs resolved
+4. **Standby/Redundancy** — recovery times, pattern detection
+5. **I/O Failures** — transfer failures by module
+6. **Interlock Cycling** — modules cycling, tracking conditions
+7. **Hardware Alarms** — hardware category breakdown
+8. **Security Events** — failed logon attempts
+9. **Process Events** — deviation alarms, tracking
 
 ---
 
